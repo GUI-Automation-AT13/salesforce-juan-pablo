@@ -8,6 +8,11 @@ import java.io.IOException;
 
 public class JsonReader {
 
+    /**
+     * Reads json file to mapper all values.
+     *
+     * @return a object with all the credentials in a class java
+     */
     public ConfigProperties readConfig() {
         ObjectMapper mapper = new ObjectMapper();
         try {
