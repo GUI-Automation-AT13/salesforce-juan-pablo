@@ -1,5 +1,6 @@
 package salesforece.ui.pages;
 
+import core.entities.ConfigProperties;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -7,11 +8,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public abstract class BasePage {
     protected WebDriver driver;
     protected WebDriverWait wait;
+    protected ConfigProperties configProperties;
 
     public BasePage(final WebDriver driver) {
         this.driver = driver;
-        wait = new WebDriverWait(driver,30);
-        PageFactory.initElements(driver,this);
+        wait = new WebDriverWait(driver, Integer.parseInt(configProperties.getImplicitWaitTime()));
+        PageFactory.initElements(driver, this);
         waitForPageLoaded();
     }
 

@@ -1,16 +1,17 @@
 package core.utils;
 
-import core.entities.ConfigProperties;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class DriverSingleton {
+ public final class DriverSingleton {
 
-    public static WebDriver instance;
+    private static WebDriver instance;
 
+    private DriverSingleton() {
+    }
 
     public static WebDriver getInstance(final Browsers browser) {
         if (instance == null) {

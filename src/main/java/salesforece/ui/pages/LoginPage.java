@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class LoginPage extends BasePage{
+public class LoginPage extends BasePage {
 
     @FindBy(id = "username")
     private WebElement userNameTxtBox;
@@ -16,7 +16,7 @@ public class LoginPage extends BasePage{
     @FindBy(id = "Login")
     private WebElement loginBtn;
 
-    public LoginPage(WebDriver driver) {
+    public LoginPage(final WebDriver driver) {
         super(driver);
     }
 
