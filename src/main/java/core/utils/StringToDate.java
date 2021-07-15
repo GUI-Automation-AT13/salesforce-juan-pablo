@@ -7,31 +7,31 @@ import java.util.Date;
 
 public class StringToDate {
 
-    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
-    public String convertirString(final String value) {
+    public Date convertirString(final String value) {
         String valor = value.toLowerCase();
         Calendar calendar = Calendar.getInstance();
         Date actualDate = calendar.getTime();
         try {
-
+            if (valor.contains("/")) return dateFormat.parse(valor);
             if (valor.equals("today")) {
-                return dateFormat.format(actualDate);
+                return actualDate;
             } else if (valor.equals("yesterday")) {
-                calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DATE) - 1);
-                return dateFormat.format(calendar.getTime());
+                calendar.add(Calendar.DAY_OF_MONTH, -1);
+                return calendar.getTime();
             } else if (valor.equals("tomorrow")) {
-                calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DATE) + 1);
-                return dateFormat.format(calendar.getTime());
+                calendar.add(Calendar.DAY_OF_MONTH,  +1);
+                return calendar.getTime();
             }
             String[] actions = cutString(valor);
-            if(actions[actions.length-1].contains("ago")) {
+            if (actions[actions.length - 1].contains("ago")) {
                 return calculateDate(Integer.parseInt(actions[0]) * -1, actions[1], calendar);
             } else {
                 return calculateDate(Integer.parseInt(actions[0]), actions[1], calendar);
             }
 
-        } catch (RuntimeException e) {
+        } catch (RuntimeException | ParseException e) {
             throw new RuntimeException("It is not a Date Valid");
         }
     }
@@ -40,30 +40,30 @@ public class StringToDate {
         return value.split(" ");
     }
 
-    public String calculateDate(final int value, final String property, final Calendar calendar) {
+    public Date calculateDate(final int value, final String property, final Calendar calendar) {
         if (property.contains("year")) {
             calendar.add(Calendar.YEAR, value);
-            return dateFormat.format(calendar.getTime());
+            return calendar.getTime();
         }
         if (property.contains("month")) {
             calendar.add(Calendar.MONTH, value);
-            return dateFormat.format(calendar.getTime());
+            return calendar.getTime();
         }
         if (property.contains("day")) {
             calendar.add(Calendar.DATE, value);
-            return dateFormat.format(calendar.getTime());
+            return calendar.getTime();
         }
         if (property.contains("hour")) {
             calendar.add(Calendar.HOUR, value);
-            return dateFormat.format(calendar.getTime());
+            return calendar.getTime();
         }
         if (property.contains("min")) {
             calendar.add(Calendar.MINUTE, value);
-            return dateFormat.format(calendar.getTime());
+            return calendar.getTime();
         }
         if (property.contains("seg")) {
             calendar.add(Calendar.SECOND, value);
-            return dateFormat.format(calendar.getTime());
+            return calendar.getTime();
         }
         return null;
     }
