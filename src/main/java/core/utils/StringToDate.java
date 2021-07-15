@@ -9,19 +9,27 @@ public class StringToDate {
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
+    /**
+     * Transforms a string in a date type.
+     *
+     * @param value string with dates information.
+     * @return a Date value.
+     */
     public Date convertirString(final String value) {
         String valor = value.toLowerCase();
         Calendar calendar = Calendar.getInstance();
         Date actualDate = calendar.getTime();
         try {
-            if (valor.contains("/")) return dateFormat.parse(valor);
+            if (valor.contains("/")) {
+                return dateFormat.parse(valor);
+            }
             if (valor.equals("today")) {
                 return actualDate;
             } else if (valor.equals("yesterday")) {
                 calendar.add(Calendar.DAY_OF_MONTH, -1);
                 return calendar.getTime();
             } else if (valor.equals("tomorrow")) {
-                calendar.add(Calendar.DAY_OF_MONTH,  +1);
+                calendar.add(Calendar.DAY_OF_MONTH, +1);
                 return calendar.getTime();
             }
             String[] actions = cutString(valor);
@@ -36,10 +44,24 @@ public class StringToDate {
         }
     }
 
+    /**
+     * Divides the string value.
+     *
+     * @param value String with the phrases date.
+     * @return a array String.
+     */
     public String[] cutString(final String value) {
         return value.split(" ");
     }
 
+    /**
+     * Calculates the correct date.
+     *
+     * @param value    time for the new date.
+     * @param property of time.
+     * @param calendar instance of Calendar.
+     * @return a Date with de time modified.
+     */
     public Date calculateDate(final int value, final String property, final Calendar calendar) {
         if (property.contains("year")) {
             calendar.add(Calendar.YEAR, value);
