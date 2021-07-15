@@ -1,0 +1,72 @@
+package core.selenium;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.concurrent.TimeUnit;
+
+public class WebDriverManager {
+
+    private WebDriverConfig webDriverConfig = WebDriverConfig.getInstance();
+    private WebDriver driver;
+    private WebDriverWait webDriverWait;
+
+    private static WebDriverManager instance = null;
+
+    /**
+     * Constructor of page WebDriverManager.
+     */
+    private WebDriverManager() {
+        initialize();
+    }
+
+    /**
+     * Gets Instance of WebElement..
+     *
+     * @return Instance of WebElement.
+     */
+    public static WebDriverManager getInstance() {
+        if (instance == null || instance.driver == null) {
+            instance = new WebDriverManager();
+        }
+        return instance;
+    }
+
+    /**
+     * Initializes According the config file.
+     */
+    private void initialize() {
+        io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
+        this.driver = new ChromeDriver();
+        this.driver.manage().window().maximize();
+        this.driver.manage().timeouts().implicitlyWait(webDriverConfig.getImplicitWaitTime(), TimeUnit.SECONDS);
+        webDriverWait = new WebDriverWait(driver, webDriverConfig.getExplicitWaitTime(), webDriverConfig.getWaitSleepTime());
+    }
+
+    /**
+     * Gets the WebDriver.
+     *
+     * @return WebDriver.
+     */
+    public WebDriver getDriver() {
+        return driver;
+    }
+
+    /**
+     * Gets the WebDriver wait.
+     *
+     * @return WebDriverWait.
+     */
+    public WebDriverWait getWait() {
+        return webDriverWait;
+    }
+
+    /**
+     * Closes all the browser instances.
+     */
+    public void quitDriver() {
+        driver.quit();
+        instance = null;
+    }
+}
