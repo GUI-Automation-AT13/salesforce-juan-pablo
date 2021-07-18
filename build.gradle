@@ -1,6 +1,16 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.6.0'
+    }
+}
+
 plugins {
     id 'java'
     id 'checkstyle'
+    id 'info.solidsoft.pitest'  version '1.6.0'
 }
 
 group 'org.example'
@@ -15,8 +25,6 @@ dependencies {
     implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '4.4.3'
     testImplementation group: 'org.testng', name: 'testng', version: '7.4.0'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.12.4'
-
-
 }
 
 test {
@@ -37,3 +45,13 @@ checkstyleTest {
 }
 check.dependsOn build
 test.finalizedBy("checkstyleMain")
+
+pitest {
+    testPlugin = 'testng'
+    targetClasses = ['core.utils.StringToDate']
+    targetTests = ['core.utils.StringToDateTest']//by default "${project.group}.*"
+    threads = 4
+    outputFormats = ['XML', 'HTML']
+    timestampedReports = false
+
+}
