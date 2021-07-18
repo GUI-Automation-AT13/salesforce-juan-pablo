@@ -38,7 +38,6 @@ public class StringToDate {
             } else {
                 return calculateDate(Integer.parseInt(actions[0]), actions[1], calendar);
             }
-
         } catch (RuntimeException | ParseException e) {
             throw new RuntimeException("It is not a Date Valid");
         }
@@ -83,7 +82,7 @@ public class StringToDate {
             calendar.add(Calendar.MINUTE, value);
             return calendar.getTime();
         }
-        if (property.contains("seg")) {
+        if (property.contains("sec")) {
             calendar.add(Calendar.SECOND, value);
             return calendar.getTime();
         }
