@@ -1,5 +1,12 @@
-package salesforce.ui;
+/**
+ * Copyright (c) 2021 Fundacion Jala.
+ * This software is the confidential and proprietary information of Fundacion Jala
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Fundacion Jala
+ */
 
+package salesforce.ui;
 
 import core.selenium.WebDriverManager;
 import salesforce.config.EnvConfig;
@@ -15,7 +22,7 @@ public class PageTransporter {
 
 
     /**
-     * .Goes to the given URL
+     * .Goes to the given URL.
      *
      * @param url Site's URL.
      */
@@ -24,9 +31,9 @@ public class PageTransporter {
     }
 
     /**
-     * .
+     * navigates to Accounts page.
      *
-     * @return .
+     * @return Accounts' instance.
      */
     public AccountsPage navigateToAccountsPage() {
         goToURL(baseUrl.concat("/lightning/o/Account/list?filterName=Recent"));
@@ -34,12 +41,13 @@ public class PageTransporter {
     }
 
     /**
-     * .
+     * navigates to Contacts page.
      *
-     * @return .
+     * @return Contacts' instance.
      */
     public ContactsPage navigateToContactsPage() {
         goToURL(baseUrl.concat("/lightning/o/Contact/list?filterName=Recent"));
         return new ContactsPage();
     }
 }
+

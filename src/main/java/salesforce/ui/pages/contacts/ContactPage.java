@@ -13,29 +13,25 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import salesforce.ui.pages.BasePage;
 
-public class ContactsPage extends BasePage {
+public class ContactPage extends BasePage {
+
+    @FindBy(css = ".slds-theme--success")
+    private WebElement alertSuccess;
 
     /**
-     * defines locator for Login Button.
-     */
-    @FindBy(css = "a[title='New']")
-    private WebElement newBtn;
-
-    /**
-     * defines the expected conditions for a element.
+     * Waits for the element in the page.
      */
     @Override
     protected void waitUntilPageObjectIsLoaded() {
-        wait.until(ExpectedConditions.visibilityOf(newBtn));
+        wait.until(ExpectedConditions.visibilityOf(alertSuccess));
     }
 
     /**
-     * Clicks on new button.
+     * Gets the alert text.
      *
-     * @return a ContactsFormPage instance
+     * @return the text value.
      */
-    public ContactsFormPage clickNewBtn() {
-        newBtn.click();
-        return new ContactsFormPage();
+    public String getTextAlertSuccess() {
+        return alertSuccess.getText();
     }
 }
