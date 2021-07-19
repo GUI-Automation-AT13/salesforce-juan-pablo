@@ -101,6 +101,26 @@ public class StringToDateTest {
         Assert.assertEquals(actual, expected);
     }
 
+    @Test
+    public void test1HourFromNow() throws ParseException {
+        calendar = new StringToDate();
+        newCalendar = Calendar.getInstance();
+        Date actual = calendar.convertirString("1 hour from now");
+        newCalendar.add(Calendar.HOUR, 1);
+        Date expected = newCalendar.getTime();
+        Assert.assertEquals(actual, expected);
+    }
+
+    @Test
+    public void test30SecondsFromNow() throws ParseException {
+        calendar = new StringToDate();
+        newCalendar = Calendar.getInstance();
+        Date actual = calendar.convertirString("30 seconds from now");
+        newCalendar.add(Calendar.SECOND, 30);
+        Date expected = newCalendar.getTime();
+        Assert.assertEquals(actual, expected);
+    }
+
     @Test(expectedExceptions = {RuntimeException.class, ParseException.class})
     public void testDateNull() {
         Date actual = calendar.convertirString(null);

@@ -23,7 +23,7 @@ public class CreateAccountTest extends BaseTest {
     public void testCreateAccountWithRequiredFields() {
 
         String accountName = "Test Account";
-        loginPage=new LoginPage();
+        loginPage = new LoginPage();
         //login
         homePage = loginPage.loginSuccessful(EnvConfig.getInstance().getUserName(), EnvConfig.getInstance().getPassword());
 
@@ -42,4 +42,10 @@ public class CreateAccountTest extends BaseTest {
     }
 
 
+    @Test
+    public void testName() {
+        loginPage = new LoginPage();
+        homePage = loginPage.loginSuccessful(EnvConfig.getInstance().getUserName(), EnvConfig.getInstance().getPassword());
+        accountsPage = pageTransporter.navigateToAccountsPage();
+    }
 }

@@ -49,9 +49,7 @@ test.finalizedBy("checkstyleMain")
 pitest {
     testPlugin = 'testng'
     targetClasses = ['core.utils.StringToDate']
-    targetTests = ['core.utils.StringToDateTest']//by default "${project.group}.*"
+    targetTests = ['core.utils.StringToDateTest*']
     threads = 4
     outputFormats = ['XML', 'HTML']
-    timestampedReports = false
-
 }

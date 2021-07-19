@@ -8,6 +8,7 @@
 
 package salesforce.ui.pages.contacts;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -21,8 +22,11 @@ public class ContactsFormPage extends BasePage {
     @FindBy(name = "salutation")
     private WebElement salutationComboBox;
 
-    @FindBy(name = "lastName")
+    @FindBy(xpath = "//input[@name='lastName']")
     private WebElement lastNameTxtBox;
+
+//    @FindBy(xpath = "//input[@name='lastName']")
+//    private WebElement lastNameXpath;
 
     @FindBy(css = "input[placeholder='Search Accounts...']")
     private WebElement accountSearchBox;
@@ -63,6 +67,9 @@ public class ContactsFormPage extends BasePage {
     @FindBy(name = "AssistantName")
     private WebElement assistantNameTxtBox;
 
+    @FindBy(name = "AssistantPhone")
+    private WebElement assistantPhoneTxtBox;
+
     @FindBy(xpath = "(//textarea[@name='street'])[1]")
     private WebElement mailingStreetTxtBox;
 
@@ -102,15 +109,20 @@ public class ContactsFormPage extends BasePage {
     @FindBy(xpath = "(//force-record-layout-section//textarea)[3]")
     private WebElement descriptionTxtBox;
 
-    @FindBy(name = "SaveEdit")
+    //    @FindBy(name = "SaveEdit")
+//    protected WebElement saveBtn;
+    @FindBy(xpath = "//button[@name='SaveEdit']")
     protected WebElement saveBtn;
+
+    private static final By SAVE_BTN = By.xpath("//button[@name='SaveEdit']");
 
     /**
      * Waits for the element in the page.
      */
     @Override
     protected void waitUntilPageObjectIsLoaded() {
-        wait.until(ExpectedConditions.visibilityOf(saveBtn));
+////        wait.until(ExpectedConditions.visibilityOf(saveBtn));
+//        wait.until(ExpectedConditions.presenceOfElementLocated(SAVE_BTN));
     }
 
     /**
@@ -130,6 +142,15 @@ public class ContactsFormPage extends BasePage {
     public void setLastNameTxtBox(final String lastName) {
         webElementAction.setInputField(lastNameTxtBox, lastName);
     }
+
+//    /**
+//     * Sets the lastName field.
+//     *
+//     * @param lastNameX lastName's value.
+//     */
+//    public void setLastNameXpath(final String lastNameX) {
+//        webElementAction.setInputField(lastNameXpath, lastNameX);
+//    }
 
     /**
      * Sets the title field.
@@ -219,6 +240,15 @@ public class ContactsFormPage extends BasePage {
      */
     public void setAssistantNameTxtBox(final String assistantName) {
         webElementAction.setInputField(assistantNameTxtBox, assistantName);
+    }
+
+    /**
+     * Sets the assistantPhone field.
+     *
+     * @param assistantPhone assistantPhone's value.
+     */
+    public void setAssistantPhoneTxtBox(final String assistantPhone) {
+        webElementAction.setInputField(assistantPhoneTxtBox, assistantPhone);
     }
 
     /**
