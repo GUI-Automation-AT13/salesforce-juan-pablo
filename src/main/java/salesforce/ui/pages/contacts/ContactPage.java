@@ -34,7 +34,8 @@ public class ContactPage extends BasePage {
     private static final String SPAN_TEXT = "//span[normalize-space()='%s']";
     private static final String SPAN_TEXT_A = "//div[contains(@class,'entityNameTitle slds-line-height--reset')]/../..//span[@data-aura-class='uiOutputText']";
     private static final String SPAN_TEXT_B = "//lightning-formatted-name[contains(@data-output-element-id,'output-field')]";
-    private static final String SPAN_TEXT2 = "//lightning-formatted-text[@data-output-element-id='output-field'][normalize-space()='Web']";
+    private static final String SPAN_TEXT2 = "//lightning-formatted-text[@data-output-element-id='output-field'][normalize-space()='%s']";
+    private static final String SPAN_DATE = "//span[normalize-space()='%s']/../.. //lightning-formatted-text";
     private static final HashMap<String, String> SPAN_FIELDS_NAMES = new HashMap<>();
 
     static {
@@ -75,8 +76,17 @@ public class ContactPage extends BasePage {
      * @return a String with the entity or company name text.
      */
     public String getNamesText(final String fieldName) {
-        return webElementAction.getElementText(driver.findElement(By.xpath(
-                String.format(SPAN_TEXT, fieldName))));
+        return webElementAction.getElementText(driver.findElement(By.xpath(String.format(SPAN_TEXT, fieldName))));
+    }
+
+    /**
+     * Gets the entity or company name text.
+     *
+     * @param fieldName .
+     * @return a String with the entity or company name text.
+     */
+    public String getDateText(final String fieldName) {
+        return webElementAction.getElementText(driver.findElement(By.xpath(String.format(SPAN_DATE, fieldName))));
     }
 
     /**

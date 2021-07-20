@@ -42,7 +42,8 @@ public class CreateContactTest extends BaseTest {
     public void createContactWithAllFields() {
         String salutation = "Dr.";
         String firstName = "Contact";
-        String lastName = "Test";
+        String lastName = "Test".concat(DateToString.currentDateToString());
+        String fullName = salutation + " " + firstName + " " + lastName;
         String title = "Title";
         String department = "Tarija";
         String birthdate = "19/7/2021";
@@ -88,7 +89,14 @@ public class CreateContactTest extends BaseTest {
                 .selectFromDropdown("Level", "Primary")
                 .setDescription("description")
                 .clickSaveBtn();
-        assertEquals("success\nContact " + "\"" + salutation + " " + firstName + " " + lastName + "\"" + " was created.\nClose",
+        String currentDate = DateToString.currentDateToString();
+        softAssert.assertEquals("success\nContact " + "\"" + salutation + " " + firstName + " " + lastName + "\"" + " was created.\nClose",
                 contactPage.getTextAlertSuccess());
+        softAssert.assertEquals(fullName, contactPage.getPrincipalName());
+        contactsPage = pageTransporter.navigateToContactsPage();
+        softAssert.assertEquals(fullName,contactsPage.getNamesText(fullName));
+        softAssert.assertEquals(currentDate,contactPage.getDateText("Created By"));
+        softAssert.assertEquals(currentDate,contactPage.getDateText("Last Modified By"));
+        softAssert.assertAll();
     }
 }
