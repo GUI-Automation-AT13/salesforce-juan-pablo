@@ -1,8 +1,9 @@
 package contacts;
 
 import base.BaseTest;
-import org.testng.Assert;
+import core.utils.DateToString;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import salesforce.config.EnvConfig;
 import salesforce.ui.pages.HomePage;
 import salesforce.ui.pages.contacts.ContactPage;
@@ -17,16 +18,23 @@ public class CreateContactTest extends BaseTest {
     private ContactsPage contactsPage;
     private ContactsFormPage contactsFormPage;
     private ContactPage contactPage;
+    SoftAssert softAssert = new SoftAssert();
 
     @Test
     public void testCreateContactOnlyWithRequiredFields() {
-        String contactLastName = "Contact Test";
+        String contactLastName = "Gonzales".concat(DateToString.dateToString());
         homePage = loginPage.loginSuccessful(EnvConfig.getInstance().getUserName(), EnvConfig.getInstance().getPassword());
         contactsPage = pageTransporter.navigateToContactsPage();
         contactsFormPage = contactsPage.clickNewBtn();
         contactPage = contactsFormPage.setInputField("lastName", contactLastName).clickSaveBtn();
-        assertEquals("success\nContact " + "\"" + contactLastName + "\"" + " was created.\nClose",
+        softAssert.assertEquals("success\nContact " + "\"" + contactLastName + "\"" + " was created.\nClose",
                 contactPage.getTextAlertSuccess());
+        contactPage.clickDetailTab();
+//        softAssert.assertEquals(contactLastName, contactPage.getNamesText("Name"));
+        softAssert.assertEquals(contactLastName, contactPage.getPrincipalName());
+        contactsPage = pageTransporter.navigateToContactsPage();
+        softAssert.assertEquals(contactLastName,contactsPage.getNamesText(contactLastName));
+        softAssert.assertAll();
     }
 
 
@@ -80,7 +88,7 @@ public class CreateContactTest extends BaseTest {
                 .selectFromDropdown("Level", "Primary")
                 .setDescription("description")
                 .clickSaveBtn();
-        assertEquals("success\nContact " + "\""+ salutation + " " + firstName + " " + lastName + "\"" + " was created.\nClose",
+        assertEquals("success\nContact " + "\"" + salutation + " " + firstName + " " + lastName + "\"" + " was created.\nClose",
                 contactPage.getTextAlertSuccess());
     }
 }

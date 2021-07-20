@@ -44,6 +44,7 @@ public class WebElementAction {
      * @param element for click
      */
     public void clickElement(final WebElement element) {
+        wait.until(ExpectedConditions.visibilityOf(element));
         element.click();
     }
 
@@ -54,6 +55,7 @@ public class WebElementAction {
      * @return a String the element's text.
      */
     public String getElementText(final WebElement element) {
+        wait.until(ExpectedConditions.visibilityOf(element));
         return element.getText();
     }
 }

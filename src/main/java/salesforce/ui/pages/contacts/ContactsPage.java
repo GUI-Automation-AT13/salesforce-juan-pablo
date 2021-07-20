@@ -8,6 +8,7 @@
 
 package salesforce.ui.pages.contacts;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -21,6 +22,11 @@ public class ContactsPage extends BasePage {
     @FindBy(css = "a[title='New']")
     private WebElement newBtn;
 
+    private By deleteBtn = By.cssSelector("//div[@title='Delete']");
+    private By confirmDeleteBtn = By.xpath("//span[text()='Delete']");
+    private static final String A_TEXT = "//a[normalize-space()='%s']";
+    @FindBy(xpath = "//a[@title='Show 3 more actions']//lightning-primitive-icon")
+    private WebElement arrowMenuIcon;
     /**
      * defines the expected conditions for a element.
      */
@@ -37,5 +43,16 @@ public class ContactsPage extends BasePage {
     public ContactsFormPage clickNewBtn() {
         newBtn.click();
         return new ContactsFormPage();
+    }
+
+    /**
+     * Gets the entity or company name text.
+     *
+     * @param fieldName .
+     * @return a String with the entity or company name text.
+     */
+    public String getNamesText(final String fieldName) {
+        return webElementAction.getElementText(driver.findElement(By.xpath(
+                String.format(A_TEXT, fieldName))));
     }
 }

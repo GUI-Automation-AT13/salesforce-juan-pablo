@@ -8,19 +8,39 @@
 
 package salesforce.ui.pages.contacts;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import salesforce.ui.pages.BasePage;
 
+import java.util.HashMap;
+
 public class ContactPage extends BasePage {
 
     @FindBy(css = ".slds-theme--success")
     private WebElement alertSuccess;
-    @FindBy(xpath = "//li[@class='slds-tabs_default__item slds-is-active']//a[@id='detailTab__item']")
+
+    @FindBy(xpath = "//a[@id='detailTab__item']")
     private WebElement detailsTab;
-    @FindBy(xpath = "//span[normalize-space()='Dr. Contact Test']")
-    private WebElement spanText;
+
+    //    @FindBy(xpath = "//span[normalize-space()='Dr. Contact Test']")
+    @FindBy(xpath = "//div[contains(@class,'entityNameTitle slds-line-height--reset')]/../..//span[@data-aura-class='uiOutputText']")
+    private WebElement spanPrincipalNameText;
+    @FindBy(xpath = "//lightning-formatted-name[@data-output-element-id='output-field']")
+    private WebElement spanDetailNameText;
+
+
+    private static final String SPAN_TEXT = "//span[normalize-space()='%s']";
+    private static final String SPAN_TEXT_A = "//div[contains(@class,'entityNameTitle slds-line-height--reset')]/../..//span[@data-aura-class='uiOutputText']";
+    private static final String SPAN_TEXT_B = "//lightning-formatted-name[contains(@data-output-element-id,'output-field')]";
+    private static final String SPAN_TEXT2 = "//lightning-formatted-text[@data-output-element-id='output-field'][normalize-space()='Web']";
+    private static final HashMap<String, String> SPAN_FIELDS_NAMES = new HashMap<>();
+
+    static {
+        SPAN_FIELDS_NAMES.put("name", "Name");
+        SPAN_FIELDS_NAMES.put("company name", "Company Name");
+    }
 
     /**
      * Waits for the element in the page.
@@ -39,14 +59,49 @@ public class ContactPage extends BasePage {
         return alertSuccess.getText();
     }
 
-
-
-    private static final String SPAN_TEXT = "//span[normalize-space()='%s']";
-
-
-
+    /**
+     * .
+     *
+     * @return .
+     */
     public String getContactNameText() {
-        return .getText()
+        return spanPrincipalNameText.getText();
+    }
+
+    /**
+     * Gets the entity or company name text.
+     *
+     * @param fieldName .
+     * @return a String with the entity or company name text.
+     */
+    public String getNamesText(final String fieldName) {
+        return webElementAction.getElementText(driver.findElement(By.xpath(
+                String.format(SPAN_TEXT, fieldName))));
+    }
+
+    /**
+     * .
+     */
+    public void clickDetailTab() {
+        webElementAction.clickElement(detailsTab);
+    }
+
+    /**
+     * .
+     *
+     * @return .
+     */
+    public String getPrincipalName() {
+        return webElementAction.getElementText(spanPrincipalNameText);
+    }
+
+    /**
+     * .
+     *
+     * @return .
+     */
+    public String getDetailName() {
+        return webElementAction.getElementText(spanDetailNameText);
     }
 
 }
