@@ -11,68 +11,23 @@ package salesforce.ui.pages.contacts;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import salesforce.ui.pages.BasePage;
 
+import java.util.HashMap;
+
 public class ContactsFormPage extends BasePage {
-
-    @FindBy(name = "firstName")
-    private WebElement firstNameTxtBox;
-
-    @FindBy(name = "salutation")
-    private WebElement salutationComboBox;
-
-    @FindBy(xpath = "//input[@name='lastName']")
-    private WebElement lastNameTxtBox;
-
-//    @FindBy(xpath = "//input[@name='lastName']")
-//    private WebElement lastNameXpath;
 
     @FindBy(css = "input[placeholder='Search Accounts...']")
     private WebElement accountSearchBox;
 
-    @FindBy(name = "Title")
-    private WebElement titleTxtBox;
-
-    @FindBy(name = "Department")
-    private WebElement departmentTxtBox;
-
-    @FindBy(name = "Birthdate")
-    private WebElement birthdateCalendar;
-
     @FindBy(css = "input[placeholder='Search Contacts...']")
     private WebElement contactsSearchBox;
-
-    @FindBy(xpath = "(//input[@class='slds-input slds-combobox__input'])[5]")
-    private WebElement leadSourcComboBox;
-
-    @FindBy(name = "Phone")
-    private WebElement phoneTxtBox;
-
-    @FindBy(name = "HomePhone")
-    private WebElement homePhoneTxtBox;
-
-    @FindBy(name = "MobilePhone")
-    private WebElement mobilePhoneTxtBox;
-
-    @FindBy(name = "OtherPhone")
-    private WebElement otherPhoneTxtBox;
-
-    @FindBy(name = "Fax")
-    private WebElement faxTxtBox;
-
-    @FindBy(name = "Email")
-    private WebElement emailTxtBox;
-
-    @FindBy(name = "AssistantName")
-    private WebElement assistantNameTxtBox;
-
-    @FindBy(name = "AssistantPhone")
-    private WebElement assistantPhoneTxtBox;
 
     @FindBy(xpath = "(//textarea[@name='street'])[1]")
     private WebElement mailingStreetTxtBox;
 
-    @FindBy(xpath = "(///input[@name='postalCode'])[1]")
+    @FindBy(xpath = "(//input[@name='postalCode'])[1]")
     private WebElement mailingPostalCodeTxtBox;
 
     @FindBy(xpath = "(//input[@name='city'])[1]")
@@ -87,7 +42,7 @@ public class ContactsFormPage extends BasePage {
     @FindBy(xpath = "(//textarea[@name='street'])[2]")
     private WebElement otherStreetTxtBox;
 
-    @FindBy(xpath = "(///input[@name='postalCode'])[2]")
+    @FindBy(xpath = "(//input[@name='postalCode'])[2]")
     private WebElement otherPostalCodeTxtBox;
 
     @FindBy(xpath = "(//input[@name='city'])[2]")
@@ -99,191 +54,103 @@ public class ContactsFormPage extends BasePage {
     @FindBy(xpath = "(//input[@name='country'])[2]")
     private WebElement otherCountryTxtBox;
 
-    @FindBy(name = "Languages__c")
-    private WebElement languagesTxtBox;
-
-    @FindBy(xpath = "(//input[@class='slds-input slds-combobox__input'])[6]")
-    private WebElement levelComboBox;
-
     @FindBy(xpath = "(//force-record-layout-section//textarea)[3]")
     private WebElement descriptionTxtBox;
 
-    //    @FindBy(name = "SaveEdit")
-//    protected WebElement saveBtn;
     @FindBy(xpath = "//button[@name='SaveEdit']")
     protected WebElement saveBtn;
 
     private static final By SAVE_BTN = By.xpath("//button[@name='SaveEdit']");
+
+    private static final String INPUT_XPATH = "//input[@name='%s']";
+    private static final String DROPDOWN_XPATH = "//lightning-combobox[label[text()='%s']]//input";
+    private static final String DROPDOWN_OPTION_XPATH = "//lightning-base-combobox-item[.//span[text()='%s']]";
+
+    private static final HashMap<String, String> INPUT_FIELD_NAMES = new HashMap<>();
+
+    static {
+        INPUT_FIELD_NAMES.put("Account Name", "Name");
+        INPUT_FIELD_NAMES.put("SIC Code", "Sic");
+    }
 
     /**
      * Waits for the element in the page.
      */
     @Override
     protected void waitUntilPageObjectIsLoaded() {
-////        wait.until(ExpectedConditions.visibilityOf(saveBtn));
+        wait.until(ExpectedConditions.visibilityOf(saveBtn));
 //        wait.until(ExpectedConditions.presenceOfElementLocated(SAVE_BTN));
     }
 
     /**
-     * Sets the firstName field.
+     * Sets the filed name and its value.
      *
-     * @param firstName firstName's value.
+     * @param fieldName  String with elements' name.
+     * @param fieldValue String with value's field.
+     * @return the same NewAccountPopup's instance.
      */
-    public void setFirstNameTxtBox(final String firstName) {
-        webElementAction.setInputField(firstNameTxtBox, firstName);
+    public ContactsFormPage setInputField(final String fieldName, final String fieldValue) {
+        String newFileName = fieldName.replaceAll(" ", "");
+        webElementAction.setInputField(driver.findElement(By.xpath(String.format(INPUT_XPATH,
+                INPUT_FIELD_NAMES.getOrDefault(fieldName, newFileName)))), fieldValue);
+        return this;
     }
 
     /**
-     * Sets the lastName field.
+     * selects a dropdown option.
      *
-     * @param lastName lastName's value.
+     * @param fieldName   String with the dropdown name.
+     * @param fieldOption String with the option name.
+     * @return the same NewAccountPopup's instance.
      */
-    public void setLastNameTxtBox(final String lastName) {
-        webElementAction.setInputField(lastNameTxtBox, lastName);
-    }
-
-//    /**
-//     * Sets the lastName field.
-//     *
-//     * @param lastNameX lastName's value.
-//     */
-//    public void setLastNameXpath(final String lastNameX) {
-//        webElementAction.setInputField(lastNameXpath, lastNameX);
-//    }
-
-    /**
-     * Sets the title field.
-     *
-     * @param title title's value.
-     */
-    public void setTitleTxtBox(final String title) {
-        webElementAction.setInputField(titleTxtBox, title);
-    }
-
-    /**
-     * Sets the department field.
-     *
-     * @param department department's value.
-     */
-    public void setDepartmentTxtBox(final String department) {
-        webElementAction.setInputField(departmentTxtBox, department);
-    }
-
-    /**
-     * Sets the birthdate field.
-     *
-     * @param birthdate birthdate' value.
-     */
-    public void setBirthdateCalendar(final String birthdate) {
-        webElementAction.setInputField(birthdateCalendar, birthdate);
-    }
-
-    /**
-     * Sets the phone field.
-     *
-     * @param phone phone's value.
-     */
-    public void setPhoneTxtBox(final String phone) {
-        webElementAction.setInputField(phoneTxtBox, phone);
-    }
-
-    /**
-     * Sets the homePhone field.
-     *
-     * @param homePhone homePhone's value.
-     */
-    public void setHomePhoneTxtBox(final String homePhone) {
-        webElementAction.setInputField(homePhoneTxtBox, homePhone);
-    }
-
-    /**
-     * Sets the mobilePhone field.
-     *
-     * @param mobilePhone mobilePhone's value.
-     */
-    public void setMobilePhoneTxtBox(final String mobilePhone) {
-        webElementAction.setInputField(mobilePhoneTxtBox, mobilePhone);
-    }
-
-    /**
-     * Sets the otherPhone field.
-     *
-     * @param otherPhone otherPhone's value.
-     */
-    public void setOtherPhoneTxtBox(final String otherPhone) {
-        webElementAction.setInputField(otherPhoneTxtBox, otherPhone);
-    }
-
-    /**
-     * Sets the fax field.
-     *
-     * @param fax fax's value.
-     */
-    public void setFaxTxtBox(final String fax) {
-        webElementAction.setInputField(faxTxtBox, fax);
-    }
-
-    /**
-     * Sets the email field.
-     *
-     * @param email email's value.
-     */
-    public void setEmailTxtBox(final String email) {
-        webElementAction.setInputField(emailTxtBox, email);
-    }
-
-    /**
-     * Sets the assistantName field.
-     *
-     * @param assistantName assistantName's value.
-     */
-    public void setAssistantNameTxtBox(final String assistantName) {
-        webElementAction.setInputField(assistantNameTxtBox, assistantName);
-    }
-
-    /**
-     * Sets the assistantPhone field.
-     *
-     * @param assistantPhone assistantPhone's value.
-     */
-    public void setAssistantPhoneTxtBox(final String assistantPhone) {
-        webElementAction.setInputField(assistantPhoneTxtBox, assistantPhone);
+    public ContactsFormPage selectFromDropdown(final String fieldName, final String fieldOption) {
+        webElementAction.clickElement(driver.findElement(By.xpath(String.format(DROPDOWN_XPATH, fieldName))));
+        webElementAction.clickElement(driver.findElement(By.xpath(String.format(DROPDOWN_OPTION_XPATH, fieldOption))));
+        return this;
     }
 
     /**
      * Sets the mailingStreet field.
      *
      * @param mailingStreet mailingStreet's value.
+     * @return the same NewAccountPopup's instance.
      */
-    public void setMailingStreet(final String mailingStreet) {
+    public ContactsFormPage setMailingStreet(final String mailingStreet) {
         webElementAction.setInputField(mailingStreetTxtBox, mailingStreet);
+        return this;
     }
 
     /**
      * Sets the mailingPostalCode field.
      *
      * @param mailingPostalCode mailingPostalCode's value.
+     * @return the same NewAccountPopup's instance.
      */
-    public void setMailingPostalCode(final String mailingPostalCode) {
+    public ContactsFormPage setMailingPostalCode(final String mailingPostalCode) {
         webElementAction.setInputField(mailingPostalCodeTxtBox, mailingPostalCode);
+        return this;
     }
 
     /**
      * Sets the mailingCity field.
      *
      * @param mailingCity mailingCity's value.
+     * @return the same NewAccountPopup's instance.
      */
-    public void setMailingCity(final String mailingCity) {
+    public ContactsFormPage setMailingCity(final String mailingCity) {
         webElementAction.setInputField(mailingCityTxtBox, mailingCity);
+        return this;
     }
 
     /**
      * Sets the mailingProvince field.
      *
      * @param mailingProvince mailingProvince's value.
+     * @return the same NewAccountPopup's instance.
      */
-    public void setMailingProvince(final String mailingProvince) {
+    public ContactsFormPage setMailingProvince(final String mailingProvince) {
         webElementAction.setInputField(mailingProvinceTxtBox, mailingProvince);
+        return this;
     }
 
 
@@ -291,108 +158,77 @@ public class ContactsFormPage extends BasePage {
      * Sets the mailingCountry field.
      *
      * @param mailingCountry mailingCountry's value.
+     * @return the same NewAccountPopup's instance.
      */
-    public void setMailingCountry(final String mailingCountry) {
+    public ContactsFormPage setMailingCountry(final String mailingCountry) {
         webElementAction.setInputField(mailingCountryTxtBox, mailingCountry);
+        return this;
     }
 
     /**
      * Sets the otherStreet field.
      *
      * @param otherStreet otherStreet's value.
+     * @return the same NewAccountPopup's instance.
      */
-    public void setOtherStreet(final String otherStreet) {
+    public ContactsFormPage setOtherStreet(final String otherStreet) {
         webElementAction.setInputField(otherStreetTxtBox, otherStreet);
+        return this;
     }
 
     /**
      * Sets the otherPostalCode field.
      *
      * @param otherPostalCode otherPostalCode's value.
+     * @return the same NewAccountPopup's instance.
      */
-    public void setOtherPostalCode(final String otherPostalCode) {
+    public ContactsFormPage setOtherPostalCode(final String otherPostalCode) {
         webElementAction.setInputField(otherPostalCodeTxtBox, otherPostalCode);
+        return this;
     }
 
     /**
      * Sets the otherCity field.
      *
      * @param otherCity otherCity's value.
+     * @return the same NewAccountPopup's instance.
      */
-    public void setOtherCity(final String otherCity) {
+    public ContactsFormPage setOtherCity(final String otherCity) {
         webElementAction.setInputField(otherCityTxtBox, otherCity);
+        return this;
     }
 
     /**
      * Sets the otherProvince field.
      *
      * @param otherProvince otherProvince's value.
+     * @return the same NewAccountPopup's instance.
      */
-    public void setOtherProvince(final String otherProvince) {
+    public ContactsFormPage setOtherProvince(final String otherProvince) {
         webElementAction.setInputField(otherProvinceTxtBox, otherProvince);
+        return this;
     }
 
     /**
      * Sets the otherCountry field.
      *
      * @param otherCountry otherCountry's value.
+     * @return the same NewAccountPopup's instance.
      */
-    public void setOtherCountry(final String otherCountry) {
+    public ContactsFormPage setOtherCountry(final String otherCountry) {
         webElementAction.setInputField(otherCountryTxtBox, otherCountry);
-    }
-
-    /**
-     * Sets the languages field.
-     *
-     * @param languages languages's value.
-     */
-    public void setLanguages(final String languages) {
-        webElementAction.setInputField(languagesTxtBox, languages);
+        return this;
     }
 
     /**
      * Sets the description field.
      *
      * @param description description's value.
+     * @return the same NewAccountPopup's instance.
      */
-    public void setDescription(final String description) {
+    public ContactsFormPage setDescription(final String description) {
         webElementAction.setInputField(descriptionTxtBox, description);
-    }
-
-    /**
-     * Clicks on salutation ComboBox.
-     */
-    public void clickSalutationComboBox() {
-        webElementAction.clickElement(salutationComboBox);
-    }
-
-    /**
-     * Clicks on account SearchBox.
-     */
-    public void clickAccountSearchBox() {
-        webElementAction.clickElement(accountSearchBox);
-    }
-
-
-    /**
-     * Clicks on contacts SearchBox.
-     */
-    public void clickContactsSearchBox() {
-        webElementAction.clickElement(contactsSearchBox);
-    }
-
-    /**
-     * Clicks on salutation ComboBox.
-     */
-    public void clickLeadSourceComboBox() {
-        webElementAction.clickElement(leadSourcComboBox);
-    }
-
-    /**
-     * Clicks on salutation ComboBox.
-     */
-    public void clickLevelComboBox() {
-        webElementAction.clickElement(levelComboBox);
+        return this;
     }
 
     /**

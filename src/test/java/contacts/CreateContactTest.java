@@ -9,59 +9,78 @@ import salesforce.ui.pages.contacts.ContactPage;
 import salesforce.ui.pages.contacts.ContactsFormPage;
 import salesforce.ui.pages.contacts.ContactsPage;
 
+import static org.testng.Assert.assertEquals;
+
 public class CreateContactTest extends BaseTest {
 
     private HomePage homePage;
-    private  ContactsPage contactsPage;
+    private ContactsPage contactsPage;
     private ContactsFormPage contactsFormPage;
     private ContactPage contactPage;
 
     @Test
     public void testCreateContactOnlyWithRequiredFields() {
         String contactLastName = "Contact Test";
-        homePage = loginPage.loginSuccessful(EnvConfig.getInstance().getUserName(),EnvConfig.getInstance().getPassword());
+        homePage = loginPage.loginSuccessful(EnvConfig.getInstance().getUserName(), EnvConfig.getInstance().getPassword());
         contactsPage = pageTransporter.navigateToContactsPage();
         contactsFormPage = contactsPage.clickNewBtn();
-        contactsFormPage.setLastNameTxtBox(contactLastName);
-        contactPage = contactsFormPage.clickSaveBtn();
-        Assert.assertEquals("success\nContact " + "\"" + contactLastName + "\"" + " was created.\nClose",
+        contactPage = contactsFormPage.setInputField("lastName", contactLastName).clickSaveBtn();
+        assertEquals("success\nContact " + "\"" + contactLastName + "\"" + " was created.\nClose",
                 contactPage.getTextAlertSuccess());
     }
 
 
     @Test
     public void createContactWithAllFields() {
+        String salutation = "Dr.";
         String firstName = "Contact";
         String lastName = "Test";
-        homePage = loginPage.loginSuccessful(EnvConfig.getInstance().getUserName(),EnvConfig.getInstance().getPassword());
+        String title = "Title";
+        String department = "Tarija";
+        String birthdate = "19/7/2021";
+        String phone = "1789654";
+        String homePhone = "1789654";
+        String mobilePhone = "1789654";
+        String otherPhone = "1789654";
+        String fax = "1789654";
+        String email = "example@gmail.com";
+        String assistantName = "AssistantName";
+        String assistantPhone = "1789654";
+        String languages = "English";
+
+        homePage = loginPage.loginSuccessful(EnvConfig.getInstance().getUserName(), EnvConfig.getInstance().getPassword());
         contactsPage = pageTransporter.navigateToContactsPage();
         contactsFormPage = contactsPage.clickNewBtn();
-        contactsFormPage.setFirstNameTxtBox(firstName);
-        contactsFormPage.setLastNameTxtBox(lastName);
-        contactsFormPage.setTitleTxtBox("title");
-        contactsFormPage.setDepartmentTxtBox("department");
-        contactsFormPage.setPhoneTxtBox("phone");
-        contactsFormPage.setHomePhoneTxtBox("homephone");
-        contactsFormPage.setMobilePhoneTxtBox("mobilephone");
-        contactsFormPage.setOtherPhoneTxtBox("otherphone");
-        contactsFormPage.setFaxTxtBox("fax");
-        contactsFormPage.setEmailTxtBox("jp@gmail.com");
-        contactsFormPage.setAssistantNameTxtBox("assistant name");
-        contactsFormPage.setAssistantPhoneTxtBox("assistant phone");
-        contactsFormPage.setMailingStreet("mailing Street");
-        contactsFormPage.setMailingPostalCode("postal code");
-        contactsFormPage.setMailingCity("city");
-        contactsFormPage.setMailingProvince("province");
-        contactsFormPage.setMailingCountry("county");
-        contactsFormPage.setOtherStreet("other street");
-        contactsFormPage.setOtherPostalCode("other postal code");
-        contactsFormPage.setOtherCity("other city");
-        contactsFormPage.setOtherProvince("other Province");
-        contactsFormPage.setOtherCountry("other country");
-        contactsFormPage.setLanguages("languages");
-        contactsFormPage.setDescription("description");
-        contactPage = contactsFormPage.clickSaveBtn();
-        Assert.assertEquals("success\nContact " + "\"" + firstName+" "+lastName+ "\"" + " was created.\nClose",
+        contactPage = contactsFormPage.selectFromDropdown("Salutation", salutation)
+                .setInputField("firstName", firstName)
+                .setInputField("lastName", lastName)
+                .setInputField("Title", title)
+                .setInputField("Department", department)
+                .setInputField("Birthdate", birthdate)
+                .selectFromDropdown("Lead Source", "Web")
+                .setInputField("Phone", phone)
+                .setInputField("HomePhone", homePhone)
+                .setInputField("MobilePhone", mobilePhone)
+                .setInputField("OtherPhone", otherPhone)
+                .setInputField("Fax", fax)
+                .setInputField("Email", email)
+                .setInputField("AssistantName", assistantName)
+                .setInputField("AssistantPhone", assistantPhone)
+                .setMailingStreet("mailing Street")
+                .setMailingPostalCode("postal code")
+                .setMailingCity("city")
+                .setMailingProvince("province")
+                .setMailingCountry("county")
+                .setOtherStreet("other street")
+                .setOtherPostalCode("other postal code")
+                .setOtherCity("other city")
+                .setOtherProvince("other Province")
+                .setOtherCountry("other country")
+                .setInputField("Languages__c", languages)
+                .selectFromDropdown("Level", "Primary")
+                .setDescription("description")
+                .clickSaveBtn();
+        assertEquals("success\nContact " + "\""+ salutation + " " + firstName + " " + lastName + "\"" + " was created.\nClose",
                 contactPage.getTextAlertSuccess());
     }
 }

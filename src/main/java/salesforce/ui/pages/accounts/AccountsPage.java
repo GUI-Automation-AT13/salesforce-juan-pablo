@@ -32,6 +32,7 @@ public class AccountsPage extends BasePage {
      * @return a new instance.
      */
     public NewAccountPopup openAccountPopup() {
+        nextBtn.click();
         return new NewAccountPopup();
     }
 }

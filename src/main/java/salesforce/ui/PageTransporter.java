@@ -37,7 +37,6 @@ public class PageTransporter {
      */
     public AccountsPage navigateToAccountsPage() {
         goToURL(baseUrl.concat("/lightning/o/Account/list?filterName=Recent"));
-        System.out.println(baseUrl.concat("/lightning/o/Account/list?filterName=Recent"));
         return new AccountsPage();
     }
 
@@ -47,9 +46,7 @@ public class PageTransporter {
      * @return Contacts' instance.
      */
     public ContactsPage navigateToContactsPage() {
-        System.out.println(baseUrl + "/lightning/o/Account/list?filterName=Recent");
         goToURL(baseUrl.concat("/lightning/o/Contact/list?filterName=Recent"));
-        System.out.println(baseUrl + "/lightning/o/Account/list?filterName=Recent");
         return new ContactsPage();
     }
 }

@@ -23,6 +23,7 @@ public class CreateAccountTest extends BaseTest {
     public void testCreateAccountWithRequiredFields() {
 
         String accountName = "Test Account";
+        String fax = "123451";
         loginPage = new LoginPage();
         //login
         homePage = loginPage.loginSuccessful(EnvConfig.getInstance().getUserName(), EnvConfig.getInstance().getPassword());
@@ -34,18 +35,17 @@ public class CreateAccountTest extends BaseTest {
         newAccountPoppup = accountsPage.openAccountPopup();
 
         //fill account form
-        accountPage = newAccountPoppup.setAccountName(accountName).clickSaveBtn();
+        accountPage = newAccountPoppup.setInputField("Name", accountName)
+                .selectFromDropdown("Type", "Other").clickSaveBtn();
 
         //Verify Success message
 
+        //Verify Account fields including Account Owner
+
+        //verify Account fields in details including Account owner, Created Bym last modified by
+
         //Go to Accounts page
-    }
 
-
-    @Test
-    public void testName() {
-        loginPage = new LoginPage();
-        homePage = loginPage.loginSuccessful(EnvConfig.getInstance().getUserName(), EnvConfig.getInstance().getPassword());
-        accountsPage = pageTransporter.navigateToAccountsPage();
+        //Verify Account name and owner or other fields
     }
 }

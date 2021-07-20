@@ -17,6 +17,10 @@ public class ContactPage extends BasePage {
 
     @FindBy(css = ".slds-theme--success")
     private WebElement alertSuccess;
+    @FindBy(xpath = "//li[@class='slds-tabs_default__item slds-is-active']//a[@id='detailTab__item']")
+    private WebElement detailsTab;
+    @FindBy(xpath = "//span[normalize-space()='Dr. Contact Test']")
+    private WebElement spanText;
 
     /**
      * Waits for the element in the page.
@@ -34,4 +38,15 @@ public class ContactPage extends BasePage {
     public String getTextAlertSuccess() {
         return alertSuccess.getText();
     }
+
+
+
+    private static final String SPAN_TEXT = "//span[normalize-space()='%s']";
+
+
+
+    public String getContactNameText() {
+        return .getText()
+    }
+
 }

@@ -8,6 +8,7 @@
 
 package salesforce.ui.pages.accounts;
 
+
 import salesforce.ui.pages.BasePage;
 
 public class AccountPage extends BasePage {
