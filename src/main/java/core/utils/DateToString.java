@@ -21,7 +21,7 @@ public class DateToString {
      */
     public static String currentDateToString() {
         Date fecha = new Date();
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+        SimpleDateFormat df = new SimpleDateFormat("dd/M/yyyy HH:mm");
         return df.format(fecha);
     }
 }
