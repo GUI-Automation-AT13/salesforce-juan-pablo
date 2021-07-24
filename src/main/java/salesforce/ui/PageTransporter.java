@@ -16,6 +16,8 @@ import salesforce.ui.pages.contacts.ContactsPage;
 public class PageTransporter {
 
     private String baseUrl = EnvConfig.getInstance().getBaseUrl();
+    private String acccountUrl = EnvConfig.getInstance().getAccountUrl();
+    private String contactUrl = EnvConfig.getInstance().getContactUrl();
 
 
     /**
@@ -33,7 +35,7 @@ public class PageTransporter {
      * @return Accounts' instance.
      */
     public AccountsPage navigateToAccountsPage() {
-        goToURL(baseUrl.concat("/lightning/o/Account/list?filterName=Recent"));
+        goToURL(baseUrl.concat(acccountUrl));
         return new AccountsPage();
     }
 
@@ -43,7 +45,7 @@ public class PageTransporter {
      * @return Contacts' instance.
      */
     public ContactsPage navigateToContactsPage() {
-        goToURL(baseUrl.concat("/lightning/o/Contact/list?filterName=Recent"));
+        goToURL(baseUrl.concat(contactUrl));
         return new ContactsPage();
     }
 }

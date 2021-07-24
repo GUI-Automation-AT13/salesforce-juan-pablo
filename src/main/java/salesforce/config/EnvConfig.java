@@ -16,6 +16,8 @@ public final class EnvConfig {
 
     private String baseUrl;
     private String loginUrl;
+    private String accountUrl;
+    private String contactUrl;
     private String userName;
     private String password;
 
@@ -42,6 +44,8 @@ public final class EnvConfig {
         Properties properties = PropertiesReader.getProperties("config.properties");
         loginUrl = properties.getProperty("loginUrl");
         baseUrl = properties.getProperty("baseUrl");
+        accountUrl = properties.getProperty("accountUrl");
+        contactUrl = properties.getProperty("contactUrl");
         userName = properties.getProperty("username");
         password = properties.getProperty("password");
     }
@@ -78,7 +82,25 @@ public final class EnvConfig {
      *
      * @return the password.
      */
-    public java.lang.String getPassword() {
+    public String getPassword() {
         return password;
+    }
+
+    /**
+     * Gets account page url of config file.
+     *
+     * @return the account url.
+     */
+    public String getAccountUrl() {
+        return accountUrl;
+    }
+
+    /**
+     * Gets contact page url of config file.
+     *
+     * @return the contact url.
+     */
+    public String getContactUrl() {
+        return contactUrl;
     }
 }
