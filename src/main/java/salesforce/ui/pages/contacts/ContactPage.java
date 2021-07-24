@@ -84,25 +84,25 @@ public class ContactPage extends BasePage {
     }
 
     /**
-     * .
+     * Clicks on detail tab.
      */
     public void clickDetailTab() {
         webElementAction.clickElement(detailsTab);
     }
 
     /**
-     * .
+     * Gets contact name text.
      *
-     * @return .
+     * @return a String with the value.
      */
     public String getPrincipalName() {
         return webElementAction.getElementText(spanPrincipalNameText);
     }
 
     /**
-     * .
+     * Gets contact name text.
      *
-     * @return .
+     * @return a String with the value.
      */
     public String getDetailName() {
         return webElementAction.getElementText(spanDetailNameText);

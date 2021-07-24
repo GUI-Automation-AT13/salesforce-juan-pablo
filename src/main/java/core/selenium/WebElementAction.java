@@ -30,7 +30,7 @@ public class WebElementAction {
      * Sets Input Fields.
      *
      * @param webElement element to set value.
-     * @param text       value to set.
+     * @param text value to set.
      */
     public void setInputField(final WebElement webElement, final String text) {
         wait.until(ExpectedConditions.visibilityOf(webElement));
