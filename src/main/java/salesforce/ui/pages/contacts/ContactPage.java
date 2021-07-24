@@ -13,7 +13,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import salesforce.ui.pages.BasePage;
-
 import java.util.HashMap;
 
 public class ContactPage extends BasePage {
@@ -24,12 +23,10 @@ public class ContactPage extends BasePage {
     @FindBy(xpath = "//a[@id='detailTab__item']")
     private WebElement detailsTab;
 
-    //    @FindBy(xpath = "//span[normalize-space()='Dr. Contact Test']")
     @FindBy(xpath = "//div[contains(@class,'entityNameTitle slds-line-height--reset')]/../..//span[@data-aura-class='uiOutputText']")
     private WebElement spanPrincipalNameText;
     @FindBy(xpath = "//lightning-formatted-name[@data-output-element-id='output-field']")
     private WebElement spanDetailNameText;
-
 
     private static final String SPAN_TEXT = "//span[normalize-space()='%s']";
     private static final String SPAN_DATE = "//span[normalize-space()='%s']/../.. //lightning-formatted-text";
@@ -58,9 +55,9 @@ public class ContactPage extends BasePage {
     }
 
     /**
-     * .
+     * Gets the contact name text.
      *
-     * @return .
+     * @return the text value.
      */
     public String getContactNameText() {
         return spanPrincipalNameText.getText();

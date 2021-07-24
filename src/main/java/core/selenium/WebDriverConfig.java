@@ -9,9 +9,7 @@
 package core.selenium;
 
 import core.utils.PropertiesReader;
-
 import java.util.Properties;
-
 public final class WebDriverConfig {
 
     private String browser;
@@ -22,14 +20,14 @@ public final class WebDriverConfig {
     private static WebDriverConfig instance;
 
     /**
-     * Constructor of page WebDriverManager.
+     * builders of page WebDriverManager.
      */
     private WebDriverConfig() {
         initialize();
     }
 
     /**
-     * Constructo of WebDriverConfig.
+     * builders of WebDriverConfig.
      * Gets WebDriverConfig as Singleton.
      *
      * @return a instance.

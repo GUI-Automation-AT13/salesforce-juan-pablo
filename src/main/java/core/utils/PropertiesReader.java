@@ -26,8 +26,8 @@ public final class PropertiesReader {
         try {
             InputStream reading = new FileInputStream(filePath);
             properties.load(reading);
-        } catch (IOException | NullPointerException e) {
-            throw new RuntimeException("It was not possible to read file properties.", e);
+        } catch (IOException | NullPointerException exception) {
+            throw new RuntimeException("It was not possible to read file properties.", exception);
         }
         return properties;
     }

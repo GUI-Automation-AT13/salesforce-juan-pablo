@@ -6,22 +6,24 @@ import java.util.Date;
 public class DateToString {
 
     /**
-     * .
-     * @return .
+     * Gets the current date to transform a String.
+     *
+     * @return String a current with the established format.
      */
     public static String dateToString() {
-        Date fecha = new Date();
+        Date date = new Date();
         SimpleDateFormat df = new SimpleDateFormat("MMddyyyyhhmmss");
-        return df.format(fecha);
+        return df.format(date);
     }
 
     /**
-     * .
-     * @return .
+     * Gets the current date to transform a String.
+     *
+     * @return String a current with the established format.
      */
     public static String currentDateToString() {
-        Date fecha = new Date();
+        Date date = new Date();
         SimpleDateFormat df = new SimpleDateFormat("dd/M/yyyy HH:mm");
-        return df.format(fecha);
+        return df.format(date);
     }
 }

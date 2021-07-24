@@ -38,7 +38,7 @@ public class StringToDate {
             } else {
                 return calculateDate(Integer.parseInt(actions[0]), actions[1], calendar);
             }
-        } catch (RuntimeException | ParseException e) {
+        } catch (RuntimeException | ParseException exception) {
             throw new RuntimeException("It is not a Date Valid");
         }
     }

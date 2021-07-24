@@ -15,8 +15,6 @@ public class CreateAccountTest extends BaseTest {
     private HomePage homePage;
     private AccountsPage accountsPage;
     private AccountPage accountPage;
-
-    //popups
     private NewAccountPopup newAccountPoppup;
 
     @Test

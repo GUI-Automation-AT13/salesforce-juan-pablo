@@ -15,9 +15,6 @@ import salesforce.ui.pages.contacts.ContactsPage;
 
 public class PageTransporter {
 
-    /**
-     * .
-     */
     private String baseUrl = EnvConfig.getInstance().getBaseUrl();
 
 
