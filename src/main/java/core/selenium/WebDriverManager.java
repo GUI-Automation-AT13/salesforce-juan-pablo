@@ -8,8 +8,8 @@
 
 package core.selenium;
 
+import core.selenium.browsers.BrowsersFactory;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.concurrent.TimeUnit;
@@ -45,10 +45,7 @@ public final class WebDriverManager {
      * Initializes According the config file.
      */
     private void initialize() {
-        io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
-        chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--disable-notifications");
-        this.driver = new ChromeDriver(chromeOptions);
+        this.driver = new BrowsersFactory().getManagerBrowser(webDriverConfig.getBrowser());
         this.driver.manage().window().maximize();
         this.driver.manage().timeouts().implicitlyWait(webDriverConfig.getImplicitWaitTime(), TimeUnit.SECONDS);
         webDriverWait = new WebDriverWait(driver, webDriverConfig.getExplicitWaitTime(), webDriverConfig.getWaitSleepTime());
