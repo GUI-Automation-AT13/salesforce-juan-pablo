@@ -1,6 +1,13 @@
-package salesforece.ui.pages;
+/**
+ * Copyright (c) 2021 Fundacion Jala.
+ * This software is the confidential and proprietary information of Fundacion Jala
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Fundacion Jala
+ */
 
-import org.openqa.selenium.WebDriver;
+package salesforce.ui.pages;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -26,19 +33,10 @@ public class LoginPage extends BasePage {
     private WebElement loginBtn;
 
     /**
-     * Constructor for login page.
-     *
-     * @param driver with WebDriver instance.
-     */
-    public LoginPage(final WebDriver driver) {
-        super(driver);
-    }
-
-    /**
      * defines the expected conditions for a element.
      */
     @Override
-    protected void waitForPageLoaded() {
+    protected void waitUntilPageObjectIsLoaded() {
         wait.until(ExpectedConditions.visibilityOf(loginBtn));
     }
 
@@ -46,25 +44,22 @@ public class LoginPage extends BasePage {
      * Sets username's value.
      *
      * @param userName a String with the username's value.
-     * @return a LoginPage instance.
      */
-    private LoginPage setUserName(final String userName) {
-        userNameTxtBox.sendKeys(userName);
-        return this;
+    private void setUserName(final String userName) {
+        webElementAction.setInputField(userNameTxtBox, userName);
     }
 
     /**
      * Sets password's value.
      *
      * @param password a String with the password's value.
-     * @return a LoginPage instance.
      */
-    private LoginPage setPassword(final String password) {
-        passwordTxtBox.sendKeys(password);
-        return this;
+    private void setPassword(final String password) {
+        webElementAction.setInputField(passwordTxtBox, password);
     }
 
     private void clickLoginBtn() {
+        wait.until(ExpectedConditions.visibilityOf(loginBtn));
         loginBtn.click();
     }
 
@@ -79,6 +74,6 @@ public class LoginPage extends BasePage {
         setUserName(userName);
         setPassword(password);
         clickLoginBtn();
-        return new HomePage(driver);
+        return new HomePage();
     }
 }

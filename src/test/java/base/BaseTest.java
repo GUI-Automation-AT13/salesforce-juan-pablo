@@ -1,29 +1,31 @@
 package base;
 
-import core.entities.ConfigProperties;
-import core.utils.Browsers;
-import core.utils.DriverSingleton;
-import io.github.bonigarcia.wdm.WebDriverManager;
+
+import core.selenium.WebDriverConfig;
+import core.selenium.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import salesforece.ui.pages.LoginPage;
+import salesforce.config.EnvConfig;
+import salesforce.ui.PageTransporter;
+import salesforce.ui.pages.LoginPage;
 
 public class BaseTest {
 
+    private WebDriver driver;
     protected LoginPage loginPage;
-    protected ConfigProperties configProperties;
+    protected PageTransporter pageTransporter;
 
     @BeforeClass
-    public void beforeClass() {
-        WebDriver driver = DriverSingleton.getInstance(Browsers.CHROME);
-        driver.get(configProperties.getBaseUri());
-        loginPage = new LoginPage(driver);
+    public void setup() {
+        driver = WebDriverManager.getInstance().getDriver();
+        driver.get(EnvConfig.getInstance().getLoginUrl());
+        loginPage = new LoginPage();
+        pageTransporter = new PageTransporter();
     }
 
     @AfterClass
     public void tearDown() {
-        DriverSingleton.quitInstance();
+        driver.quit();
     }
 }
