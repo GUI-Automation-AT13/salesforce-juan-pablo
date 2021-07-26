@@ -13,11 +13,14 @@ import salesforce.config.EnvConfig;
 import salesforce.ui.pages.accounts.AccountsPage;
 import salesforce.ui.pages.contacts.ContactsPage;
 
-public class PageTransporter {
 
-    private String baseUrl = EnvConfig.getInstance().getBaseUrl();
-    private String acccountUrl = EnvConfig.getInstance().getAccountUrl();
-    private String contactUrl = EnvConfig.getInstance().getContactUrl();
+
+public class PageTransporter {
+    //Este metodo debe cambiarse talces en un singleton para que peuda ser estatico
+    private String baseUrl;
+//    private String baseUrl = EnvConfig.getInstance().getBaseUrl();
+//    private String acccountUrl = EnvConfig.getInstance().getAccountUrl();
+//    private String contactUrl = EnvConfig.getInstance().getContactUrl();
 
 
     /**
@@ -25,28 +28,18 @@ public class PageTransporter {
      *
      * @param url Site's URL.
      */
-    public void goToURL(final String url) {
+    public static void goToURL(final String url) {
         WebDriverManager.getInstance().getDriver().navigate().to(url);
     }
 
     /**
-     * navigates to Accounts page.
-     *
-     * @return Accounts' instance.
+     * .
+     * @param page .
      */
-    public AccountsPage navigateToAccountsPage() {
-        goToURL(baseUrl.concat(acccountUrl));
-        return new AccountsPage();
-    }
-
-    /**
-     * navigates to Contacts page.
-     *
-     * @return Contacts' instance.
-     */
-    public ContactsPage navigateToContactsPage() {
-        goToURL(baseUrl.concat(contactUrl));
-        return new ContactsPage();
+    public static void naavigateToURLByPageName(final Pages page) {
+        //recuperar la url de alguna forma con un ENUM o un MAPA
+        String baseUrl = EnvConfig.getInstance().getBaseUrl();
+        goToURL(baseUrl.concat(page.getPageRoute()));
     }
 }
 

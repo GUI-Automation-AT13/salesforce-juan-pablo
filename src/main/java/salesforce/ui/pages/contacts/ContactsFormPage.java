@@ -12,8 +12,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import salesforce.entities.contacts.Contact;
 import salesforce.ui.pages.BasePage;
+
 import java.util.HashMap;
+import java.util.Set;
 
 public class ContactsFormPage extends BasePage {
 
@@ -106,5 +109,22 @@ public class ContactsFormPage extends BasePage {
     public ContactPage clickSaveBtn() {
         saveBtn.click();
         return new ContactPage();
+    }
+
+    /**
+     * .
+     *
+     * @param fields  .
+     * @param contact .
+     * @return .
+     */
+    public ContactPage createContactEntity(final Set<String> fields, final Contact contact) {
+        HashMap<String, Runnable> strategyMap = new HashMap<>();
+        //llenar todos los fields
+        //Componer el mapa
+        strategyMap.put("LastName", () -> setInputsField("LastName", contact.getLastName()));
+        //llenar el formulario
+        fields.forEach(field -> strategyMap.get(field).run());
+        return  clickSaveBtn();
     }
 }
