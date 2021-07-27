@@ -112,11 +112,11 @@ public class ContactsFormPage extends BasePage {
     }
 
     /**
-     * .
+     * Sets value for each fields on Entity.
      *
-     * @param fields  .
-     * @param contact .
-     * @return .
+     * @param fields value's Keys  .
+     * @param contact Entity to set.
+     * @return a ContactPage entity.
      */
     public ContactPage createContactEntity(final Set<String> fields, final Contact contact) {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
