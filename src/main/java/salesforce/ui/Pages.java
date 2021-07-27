@@ -1,6 +1,7 @@
 package salesforce.ui;
 
 public enum Pages {
+    LOGIN("https://login.salesforce.com"),
     ACCOUNT("/lightning/o/Account/list?filterName=Recent"),
     CONTACTS("/lightning/o/Contact/list?filterName=Recent");
 

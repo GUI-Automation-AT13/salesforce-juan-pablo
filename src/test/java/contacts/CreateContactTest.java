@@ -46,67 +46,67 @@ public class CreateContactTest extends BaseTest {
     String otherCountry = "Bolivia";
     String description = "good test";
     String level = "Primary";
-
-    @Test
-    public void testCreateContactOnlyWithRequiredFields() {
-        homePage = loginPage.loginSuccessful(EnvConfig.getInstance().getUserName(), EnvConfig.getInstance().getPassword());
-        contactsPage = pageTransporter.navigateToContactsPage();
-        contactsFormPage = contactsPage.clickNewBtn();
-        contactPage = contactsFormPage.setInputField("lastName", lastName).clickSaveBtn();
-        softAssert.assertEquals("success\nContact " + "\"" + lastName + "\"" + " was created.\nClose",
-                contactPage.getTextAlertSuccess());
-        contactPage.clickDetailTab();
-        softAssert.assertEquals(lastName, contactPage.getPrincipalName());
-        contactsPage = pageTransporter.navigateToContactsPage();
-        softAssert.assertEquals(lastName, contactsPage.getNamesText(lastName));
-        softAssert.assertAll();
-    }
-
-
-    @Test
-    public void createContactWithAllFields() {
-        homePage = loginPage.loginSuccessful(EnvConfig.getInstance().getUserName(), EnvConfig.getInstance().getPassword());
-        contactsPage = pageTransporter.navigateToContactsPage();
-        contactsFormPage = contactsPage.clickNewBtn();
-        contactPage = contactsFormPage.selectFromDropdown("Salutation", salutation)
-                .setInputField("firstName", firstName)
-                .setInputField("lastName", lastName)
-                .selectFromDropdown("Lead Source", "Web")
-                .setInputField("Title", title)
-                .setInputField("Department", department)
-                .setInputField("Birthdate", birthdate)
-                .setInputField("Phone", phone)
-                .setInputField("HomePhone", homePhone)
-                .setInputField("MobilePhone", mobilePhone)
-                .setInputField("OtherPhone", otherPhone)
-                .setInputField("Fax", fax)
-                .setInputField("Email", email)
-                .setInputField("AssistantName", assistantName)
-                .setInputField("AssistantPhone", assistantPhone)
-                .setTextAreaField("Mailing Street", mailingStreet)
-                .setInputsField("Mailing Zip/Postal Code", postalCode)
-                .setInputsField("Mailing City", city)
-                .setInputsField("Mailing State/Province", province)
-                .setInputsField("Mailing Country", country)
-                .setTextAreaField("Other Street", otherStreet)
-                .setInputsField("Other Zip/Postal Code", otherPostalCode)
-                .setInputsField("Other City", otherCity)
-                .setInputsField("Other State/Province", otherProvince)
-                .setInputsField("Other Country", otherCountry)
-                .setInputField("Languages__c", languages)
-                .selectFromDropdown("Level", level)
-                .setTextAreaField("Description", description)
-                .clickSaveBtn();
-        String currentDate = DateToString.currentDateToString();
-        softAssert.assertEquals("success\nContact " + "\"" + salutation + " " + firstName + " " + lastName + "\"" + " was created.\nClose",
-                contactPage.getTextAlertSuccess());
-        softAssert.assertEquals(fullName, contactPage.getPrincipalName());
-        contactPage.clickDetailTab();
-        softAssert.assertEquals(fullName, contactPage.getDetailName());
-        softAssert.assertEquals(currentDate, contactPage.getDateText("Created By"));
-        softAssert.assertEquals(currentDate, contactPage.getDateText("Last Modified By"));
-        contactsPage = pageTransporter.navigateToContactsPage();
-        softAssert.assertEquals(testName, contactsPage.getNamesText(testName));
-        softAssert.assertAll();
-    }
+//
+//    @Test
+//    public void testCreateContactOnlyWithRequiredFields() {
+//        homePage = loginPage.loginSuccessful(EnvConfig.getInstance().getUserName(), EnvConfig.getInstance().getPassword());
+//        contactsPage = pageTransporter.navigateToContactsPage();
+//        contactsFormPage = contactsPage.clickNewBtn();
+//        contactPage = contactsFormPage.setInputField("lastName", lastName).clickSaveBtn();
+//        softAssert.assertEquals("success\nContact " + "\"" + lastName + "\"" + " was created.\nClose",
+//                contactPage.getTextAlertSuccess());
+//        contactPage.clickDetailTab();
+//        softAssert.assertEquals(lastName, contactPage.getPrincipalName());
+//        contactsPage = pageTransporter.navigateToContactsPage();
+//        softAssert.assertEquals(lastName, contactsPage.getNamesText(lastName));
+//        softAssert.assertAll();
+//    }
+//
+//
+//    @Test
+//    public void createContactWithAllFields() {
+//        homePage = loginPage.loginSuccessful(EnvConfig.getInstance().getUserName(), EnvConfig.getInstance().getPassword());
+//        contactsPage = pageTransporter.navigateToContactsPage();
+//        contactsFormPage = contactsPage.clickNewBtn();
+//        contactPage = contactsFormPage.selectFromDropdown("Salutation", salutation)
+//                .setInputField("firstName", firstName)
+//                .setInputField("lastName", lastName)
+//                .selectFromDropdown("Lead Source", "Web")
+//                .setInputField("Title", title)
+//                .setInputField("Department", department)
+//                .setInputField("Birthdate", birthdate)
+//                .setInputField("Phone", phone)
+//                .setInputField("HomePhone", homePhone)
+//                .setInputField("MobilePhone", mobilePhone)
+//                .setInputField("OtherPhone", otherPhone)
+//                .setInputField("Fax", fax)
+//                .setInputField("Email", email)
+//                .setInputField("AssistantName", assistantName)
+//                .setInputField("AssistantPhone", assistantPhone)
+//                .setTextAreaField("Mailing Street", mailingStreet)
+//                .setInputsField("Mailing Zip/Postal Code", postalCode)
+//                .setInputsField("Mailing City", city)
+//                .setInputsField("Mailing State/Province", province)
+//                .setInputsField("Mailing Country", country)
+//                .setTextAreaField("Other Street", otherStreet)
+//                .setInputsField("Other Zip/Postal Code", otherPostalCode)
+//                .setInputsField("Other City", otherCity)
+//                .setInputsField("Other State/Province", otherProvince)
+//                .setInputsField("Other Country", otherCountry)
+//                .setInputField("Languages__c", languages)
+//                .selectFromDropdown("Level", level)
+//                .setTextAreaField("Description", description)
+//                .clickSaveBtn();
+//        String currentDate = DateToString.currentDateToString();
+//        softAssert.assertEquals("success\nContact " + "\"" + salutation + " " + firstName + " " + lastName + "\"" + " was created.\nClose",
+//                contactPage.getTextAlertSuccess());
+//        softAssert.assertEquals(fullName, contactPage.getPrincipalName());
+//        contactPage.clickDetailTab();
+//        softAssert.assertEquals(fullName, contactPage.getDetailName());
+//        softAssert.assertEquals(currentDate, contactPage.getDateText("Created By"));
+//        softAssert.assertEquals(currentDate, contactPage.getDateText("Last Modified By"));
+//        contactsPage = pageTransporter.navigateToContactsPage();
+//        softAssert.assertEquals(testName, contactsPage.getNamesText(testName));
+//        softAssert.assertAll();
+//    }
 }

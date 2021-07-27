@@ -10,18 +10,11 @@ package salesforce.ui;
 
 import core.selenium.WebDriverManager;
 import salesforce.config.EnvConfig;
-import salesforce.ui.pages.accounts.AccountsPage;
-import salesforce.ui.pages.contacts.ContactsPage;
-
-
+import salesforce.ui.pages.LoginPage;
 
 public class PageTransporter {
-    //Este metodo debe cambiarse talces en un singleton para que peuda ser estatico
-    private String baseUrl;
-//    private String baseUrl = EnvConfig.getInstance().getBaseUrl();
-//    private String acccountUrl = EnvConfig.getInstance().getAccountUrl();
-//    private String contactUrl = EnvConfig.getInstance().getContactUrl();
 
+    private String baseUrl;
 
     /**
      * .Goes to the given URL.
@@ -36,10 +29,20 @@ public class PageTransporter {
      * .
      * @param page .
      */
-    public static void naavigateToURLByPageName(final Pages page) {
+    public static void navigateToURLByPageName(final Pages page) {
         //recuperar la url de alguna forma con un ENUM o un MAPA
         String baseUrl = EnvConfig.getInstance().getBaseUrl();
         goToURL(baseUrl.concat(page.getPageRoute()));
+    }
+
+    /**
+     * Navigates to login page.
+     *
+     * @return a LoginPage entity.
+     */
+    public LoginPage navigateToLoginPage() {
+        goToURL(EnvConfig.getInstance().getLoginUrl());
+        return new LoginPage();
     }
 }
 
