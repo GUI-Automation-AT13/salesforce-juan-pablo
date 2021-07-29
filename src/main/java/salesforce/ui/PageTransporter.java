@@ -10,43 +10,39 @@ package salesforce.ui;
 
 import core.selenium.WebDriverManager;
 import salesforce.config.EnvConfig;
-import salesforce.ui.pages.accounts.AccountsPage;
-import salesforce.ui.pages.contacts.ContactsPage;
+import salesforce.ui.pages.LoginPage;
 
 public class PageTransporter {
 
-    private String baseUrl = EnvConfig.getInstance().getBaseUrl();
-    private String acccountUrl = EnvConfig.getInstance().getAccountUrl();
-    private String contactUrl = EnvConfig.getInstance().getContactUrl();
-
+    private String baseUrl;
 
     /**
      * .Goes to the given URL.
      *
      * @param url Site's URL.
      */
-    public void goToURL(final String url) {
+    public static void goToURL(final String url) {
         WebDriverManager.getInstance().getDriver().navigate().to(url);
     }
 
     /**
-     * navigates to Accounts page.
-     *
-     * @return Accounts' instance.
+     * .
+     * @param page .
      */
-    public AccountsPage navigateToAccountsPage() {
-        goToURL(baseUrl.concat(acccountUrl));
-        return new AccountsPage();
+    public static void navigateToURLByPageName(final Pages page) {
+        //recuperar la url de alguna forma con un ENUM o un MAPA
+        String baseUrl = EnvConfig.getInstance().getBaseUrl();
+        goToURL(baseUrl.concat(page.getPageRoute()));
     }
 
     /**
-     * navigates to Contacts page.
+     * Navigates to login page.
      *
-     * @return Contacts' instance.
+     * @return a LoginPage entity.
      */
-    public ContactsPage navigateToContactsPage() {
-        goToURL(baseUrl.concat(contactUrl));
-        return new ContactsPage();
+    public LoginPage navigateToLoginPage() {
+        goToURL(EnvConfig.getInstance().getLoginUrl());
+        return new LoginPage();
     }
 }
 

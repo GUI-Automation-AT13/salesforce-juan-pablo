@@ -12,8 +12,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import salesforce.entities.contacts.Contact;
 import salesforce.ui.pages.BasePage;
+
 import java.util.HashMap;
+import java.util.Set;
 
 public class ContactsFormPage extends BasePage {
 
@@ -106,5 +109,46 @@ public class ContactsFormPage extends BasePage {
     public ContactPage clickSaveBtn() {
         saveBtn.click();
         return new ContactPage();
+    }
+
+    /**
+     * Sets value for each fields on Entity.
+     *
+     * @param fields  value's Keys  .
+     * @param contact Entity to set.
+     * @return a ContactPage entity.
+     */
+    public ContactPage createContactEntity(final Set<String> fields, final Contact contact) {
+        HashMap<String, Runnable> strategyMap = new HashMap<>();
+        strategyMap.put("Salutation", () -> selectFromDropdown("Salutation", contact.getSalutation()));
+        strategyMap.put("FirstName", () -> setInputField("firstName", contact.getFirstName()));
+        strategyMap.put("LastName", () -> setInputField("lastName", contact.getLastName()));
+        strategyMap.put("LeadSource", () -> selectFromDropdown("Lead Source", contact.getLeadSource()));
+        strategyMap.put("Title", () -> setInputField("Title", contact.getTitle()));
+        strategyMap.put("Department", () -> setInputField("Department", contact.getDepartment()));
+        strategyMap.put("Birthdate", () -> setInputField("Birthdate", contact.getBirthdate()));
+        strategyMap.put("Phone", () -> setInputField("Phone", contact.getPhone()));
+        strategyMap.put("HomePhone", () -> setInputField("HomePhone", contact.getHomePhone()));
+        strategyMap.put("MobilePhone", () -> setInputField("MobilePhone", contact.getMobilePhone()));
+        strategyMap.put("OtherPhone", () -> setInputField("OtherPhone", contact.getOtherPhone()));
+        strategyMap.put("Fax", () -> setInputField("Fax", contact.getFax()));
+        strategyMap.put("Email", () -> setInputField("Email", contact.getEmail()));
+        strategyMap.put("AssistantName", () -> setInputField("AssistantName", contact.getAssistantName()));
+        strategyMap.put("AssistantPhone", () -> setInputField("AssistantPhone", contact.getAssistantPhone()));
+        strategyMap.put("MailingStreet", () -> setTextAreaField("Mailing Street", contact.getMailingStreet()));
+        strategyMap.put("MailingPostalCode", () -> setInputsField("Mailing Zip/Postal Code", contact.getMailingPostalCode()));
+        strategyMap.put("MailingCity", () -> setInputsField("Mailing City", contact.getMailingCity()));
+        strategyMap.put("MailingState", () -> setInputsField("Mailing State/Province", contact.getMailingState()));
+        strategyMap.put("MailingCountry", () -> setInputsField("Mailing Country", contact.getMailingCountry()));
+        strategyMap.put("OtherStreet", () -> setTextAreaField("Other Street", contact.getOtherStreet()));
+        strategyMap.put("OtherPostalCode", () -> setInputsField("Other Zip/Postal Code", contact.getOtherStreet()));
+        strategyMap.put("OtherCity", () -> setInputsField("Other City", contact.getOtherCity()));
+        strategyMap.put("OtherState", () -> setInputsField("Other State/Province", contact.getOtherState()));
+        strategyMap.put("OtherCountry", () -> setInputsField("Other Country", contact.getOtherCountry()));
+        strategyMap.put("Languages__c", () -> setInputField("Languages__c", contact.getLanguagesC()));
+        strategyMap.put("Level__c", () -> selectFromDropdown("Level", contact.getLevelC()));
+        strategyMap.put("Description", () -> setTextAreaField("Description", contact.getDescription()));
+        fields.forEach(field -> strategyMap.get(field).run());
+        return clickSaveBtn();
     }
 }
