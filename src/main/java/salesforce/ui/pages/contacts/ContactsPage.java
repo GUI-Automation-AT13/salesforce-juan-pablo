@@ -24,7 +24,7 @@ public class ContactsPage extends BasePage {
 
     private By deleteBtn = By.cssSelector("//div[@title='Delete']");
     private By confirmDeleteBtn = By.xpath("//span[text()='Delete']");
-    private static final String A_TEXT = "//a[normalize-space()='%s']";
+    private static final String A_TEXT = "//a[contains(text(),'%s')]";
     @FindBy(xpath = "//a[@title='Show 3 more actions']//lightning-primitive-icon")
     private WebElement arrowMenuIcon;
     /**

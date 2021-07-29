@@ -27,7 +27,8 @@ public class ContactsSteps {
     private ContactPage contactPage;
     private Contact contact;
     SoftAssert softAssert = new SoftAssert();
-
+    String fullName;
+    String name;
     private WebDriver driver;
     protected LoginPage loginPage;
     protected PageTransporter pageTransporter;
@@ -54,24 +55,26 @@ public class ContactsSteps {
 
     @Then("^A successful message is displayed$")
     public void a_successful_message_is_displayed() {
-        softAssert.assertEquals("success\nContact " + "\"" + contact.getLastName() + "\"" + " was created.\nClose",
+        fullName = contact.fullName(contact.getSalutation(),contact.getFirstName(),contact.getLastName());
+        softAssert.assertEquals("success\nContact " + "\"" + fullName + "\"" + " was created.\nClose",
                 contactPage.getTextAlertSuccess());
     }
 
     @And("^I check header name$")
     public void i_check_header_name() {
-        softAssert.assertEquals(contact.getLastName(), contactPage.getPrincipalName());
+        softAssert.assertEquals(fullName, contactPage.getPrincipalName());
     }
 
     @Then("^I check details fields$")
     public void i_check_details_fields() {
         contactPage.clickDetailTab();
-        softAssert.assertEquals(contact.getLastName(), contactPage.getPrincipalName());
+        softAssert.assertEquals(fullName, contactPage.getPrincipalName());
     }
 
     @Then("^I check the contacts was created$")
     public void i_check_the_contacts_was_created() {
-        softAssert.assertEquals(contact.getLastName(), contactsPage.getNamesText(contact.getLastName()));
+        name = contact.getFirtsLastName(contact.getFirstName(),contact.getLastName());
+        softAssert.assertEquals(name, contactsPage.getNamesText(contact.getLastName()));
         softAssert.assertAll();
     }
 

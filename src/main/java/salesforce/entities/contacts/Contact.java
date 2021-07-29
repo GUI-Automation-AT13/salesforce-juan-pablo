@@ -638,4 +638,38 @@ public class Contact {
     public void setLanguagesC(final String languagesC) {
         this.languagesC = languagesC;
     }
+
+
+    public String fullName(final String salutation, final String firstname, final String lastanem) {
+
+        String namecomplete = "";
+
+        if (salutation.isEmpty() && firstname.isEmpty() && !lastanem.isEmpty()) {
+            return namecomplete = lastanem;
+        } else {
+            if (!salutation.isEmpty()) {
+                namecomplete = salutation + " ";
+            }
+            if (!firstname.isEmpty()) {
+                namecomplete += firstname;
+            } else {
+                namecomplete = "";
+            }
+            return namecomplete + " " + lastanem;
+        }
+    }
+
+    public String getFirtsLastName(final String firstname, final String lastanem) {
+
+        String namecomplete = "";
+
+        if (firstname.isEmpty() && !lastanem.isEmpty()) {
+            return namecomplete = lastanem;
+        } else {
+            if (!firstname.isEmpty()) {
+                namecomplete = "" + firstname;
+            }
+            return namecomplete + " " + lastanem;
+        }
+    }
 }

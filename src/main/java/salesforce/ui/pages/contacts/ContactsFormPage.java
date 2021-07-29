@@ -114,27 +114,27 @@ public class ContactsFormPage extends BasePage {
     /**
      * Sets value for each fields on Entity.
      *
-     * @param fields value's Keys  .
+     * @param fields  value's Keys  .
      * @param contact Entity to set.
      * @return a ContactPage entity.
      */
     public ContactPage createContactEntity(final Set<String> fields, final Contact contact) {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
         strategyMap.put("Salutation", () -> selectFromDropdown("Salutation", contact.getSalutation()));
-        strategyMap.put("FirstName", () -> setInputsField("First Name", contact.getFirstName()));
-        strategyMap.put("LastName", () -> setInputsField("Last Name", contact.getLastName()));
+        strategyMap.put("FirstName", () -> setInputField("firstName", contact.getFirstName()));
+        strategyMap.put("LastName", () -> setInputField("lastName", contact.getLastName()));
         strategyMap.put("LeadSource", () -> selectFromDropdown("Lead Source", contact.getLeadSource()));
-        strategyMap.put("Title", () -> setInputsField("Title", contact.getTitle()));
-        strategyMap.put("Department", () -> setInputsField("Department", contact.getDepartment()));
-        strategyMap.put("Birthdate", () -> setInputsField("Birthdate", contact.getBirthdate()));
-        strategyMap.put("Phone", () -> setInputsField("Phone", contact.getPhone()));
-        strategyMap.put("HomePhone", () -> setInputsField("Home Phone", contact.getHomePhone()));
-        strategyMap.put("MobilePhone", () -> setInputsField("Mobile", contact.getMobilePhone()));
-        strategyMap.put("OtherPhone", () -> setInputsField("Other Phone", contact.getOtherPhone()));
-        strategyMap.put("Fax", () -> setInputsField("Fax", contact.getFax()));
-        strategyMap.put("Email", () -> setInputsField("Email", contact.getEmail()));
-        strategyMap.put("AssistantName", () -> setInputsField("Assistant", contact.getAssistantName()));
-        strategyMap.put("AssistantPhone", () -> setInputsField("Asst. Phone", contact.getAssistantPhone()));
+        strategyMap.put("Title", () -> setInputField("Title", contact.getTitle()));
+        strategyMap.put("Department", () -> setInputField("Department", contact.getDepartment()));
+        strategyMap.put("Birthdate", () -> setInputField("Birthdate", contact.getBirthdate()));
+        strategyMap.put("Phone", () -> setInputField("Phone", contact.getPhone()));
+        strategyMap.put("HomePhone", () -> setInputField("HomePhone", contact.getHomePhone()));
+        strategyMap.put("MobilePhone", () -> setInputField("MobilePhone", contact.getMobilePhone()));
+        strategyMap.put("OtherPhone", () -> setInputField("OtherPhone", contact.getOtherPhone()));
+        strategyMap.put("Fax", () -> setInputField("Fax", contact.getFax()));
+        strategyMap.put("Email", () -> setInputField("Email", contact.getEmail()));
+        strategyMap.put("AssistantName", () -> setInputField("AssistantName", contact.getAssistantName()));
+        strategyMap.put("AssistantPhone", () -> setInputField("AssistantPhone", contact.getAssistantPhone()));
         strategyMap.put("MailingStreet", () -> setTextAreaField("Mailing Street", contact.getMailingStreet()));
         strategyMap.put("MailingPostalCode", () -> setInputsField("Mailing Zip/Postal Code", contact.getMailingPostalCode()));
         strategyMap.put("MailingCity", () -> setInputsField("Mailing City", contact.getMailingCity()));
@@ -145,10 +145,10 @@ public class ContactsFormPage extends BasePage {
         strategyMap.put("OtherCity", () -> setInputsField("Other City", contact.getOtherCity()));
         strategyMap.put("OtherState", () -> setInputsField("Other State/Province", contact.getOtherState()));
         strategyMap.put("OtherCountry", () -> setInputsField("Other Country", contact.getOtherCountry()));
-        strategyMap.put("Languages__c", () -> setInputField("Languages", contact.getLanguagesC()));
+        strategyMap.put("Languages__c", () -> setInputField("Languages__c", contact.getLanguagesC()));
         strategyMap.put("Level__c", () -> selectFromDropdown("Level", contact.getLevelC()));
-        strategyMap.put("Description", () -> setInputsField("Description", contact.getDescription()));
+        strategyMap.put("Description", () -> setTextAreaField("Description", contact.getDescription()));
         fields.forEach(field -> strategyMap.get(field).run());
-        return  clickSaveBtn();
+        return clickSaveBtn();
     }
 }
